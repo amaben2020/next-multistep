@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { shippingDetailsSchema } from "../../../utils/schemas/shipping-details";
+import { z } from "zod";
 
 const ShippingDetailsForm = ({ onNext }) => {
   const [formData, setFormData] = useState({
@@ -33,6 +34,7 @@ const ShippingDetailsForm = ({ onNext }) => {
       }
     }
   };
+  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -3,6 +3,7 @@
 "use client";
 
 import { useState } from "react";
+import { z } from "zod";
 import { paymentInfoSchema } from "../../../utils/schemas/payment-details";
 
 const PaymentInformationForm = ({ onConfirm }) => {
@@ -34,9 +35,9 @@ const PaymentInformationForm = ({ onConfirm }) => {
       }
     }
   };
-
+  console.log(errors.fieldErrors.cardNumber);
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       <div>
         <label>Card Number</label>
         <input
@@ -45,8 +46,18 @@ const PaymentInformationForm = ({ onConfirm }) => {
           value={formData.cardNumber}
           onChange={handleChange}
         />
-        {errors.cardNumber && (
-          <span className="error">{errors.cardNumber}</span>
+        {errors.fieldErrors.cardNumber && (
+          <span className="error">
+            {errors.fieldErrors.cardNumber.map((e) => (
+              <>
+                <p style={{ color: "red", fontSize: 20 }}>{e}</p>
+              </>
+            ))}
+
+            <p style={{ color: "red", fontSize: 20 }}>
+              {errors.fieldErrors.cardNumber[0]}
+            </p>
+          </span>
         )}
       </div>
       <div>
