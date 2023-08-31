@@ -28,6 +28,9 @@ const PaymentInformationForm = ({ onConfirm }) => {
       const validatedData = paymentInfoSchema.parse(formData);
       console.log("Valid payment info:", validatedData);
       setErrors({});
+
+      // if there are any errors, this doesn't get called
+      alert("Ok");
       onConfirm(); // Proceed to confirmation step
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -46,6 +49,8 @@ const PaymentInformationForm = ({ onConfirm }) => {
           value={formData.cardNumber}
           onChange={handleChange}
         />
+
+        {/* TODO: extract to a custom error handler */}
         {errors.fieldErrors.cardNumber && (
           <span className="error">
             {errors.fieldErrors.cardNumber.map((e) => (
