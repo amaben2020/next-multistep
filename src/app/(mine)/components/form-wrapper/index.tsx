@@ -2,7 +2,7 @@ const FormWrapper = ({
   children,
   onSubmit,
 }: {
-  children: any;
+  children: React.ReactNode;
   onSubmit: () => void;
 }) => {
   return <form onSubmit={onSubmit}>{children}</form>;
