@@ -1,5 +1,9 @@
-const Button = ({ children, ...props }: { children: React.ReactNode }) => {
-  console.log("props", props);
+import { ComponentProps } from "react";
+
+interface IButtonProps extends ComponentProps<"button"> {
+  children: React.ReactNode;
+}
+const Button = ({ children, ...props }: IButtonProps) => {
   return <button {...props}>{children}</button>;
 };
 
