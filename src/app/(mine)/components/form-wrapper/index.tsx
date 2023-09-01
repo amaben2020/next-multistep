@@ -3,7 +3,7 @@ const FormWrapper = ({
   onSubmit,
 }: {
   children: React.ReactNode;
-  onSubmit: () => void;
+  onSubmit: (e: React.SyntheticEvent) => void;
 }) => {
   return (
     <form

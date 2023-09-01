@@ -84,9 +84,6 @@ const UserDetails = ({
   };
 
   const renderError = ({ fieldErrors }: any, name: any) => {
-    console.log("fieldErrors", fieldErrors);
-    console.log("fieldErrors prop", fieldErrors[name]);
-    console.log("name", name);
     return (
       <ErrorComponent
         message={
