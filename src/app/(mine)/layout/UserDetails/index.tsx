@@ -84,7 +84,18 @@ const UserDetails = ({
   };
 
   const renderError = ({ fieldErrors }: any, name: any) => {
-    return <ErrorComponent message={fieldErrors[name][0] ?? ""} />;
+    console.log("fieldErrors", fieldErrors);
+    console.log("fieldErrors prop", fieldErrors[name]);
+    console.log("name", name);
+    return (
+      <ErrorComponent
+        message={
+          Array.isArray(fieldErrors[name])
+            ? fieldErrors[name][0]
+            : fieldErrors[name]
+        }
+      />
+    );
   };
 
   const disableButton =
