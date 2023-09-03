@@ -1,9 +1,9 @@
 "use client";
 
-import { getCloudinaryImages } from "@/app/utils/api/get-cloudinary-images";
+// import { getCloudinaryImages } from "@/app/utils/api/get-cloudinary-images";
 import { uploadImageToCloudinary } from "@/app/utils/api/upload-cloudinary-image";
 import { buildUrl } from "cloudinary-build-url";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -11,11 +11,11 @@ const UploadForm = () => {
 
   const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      setImages(await getCloudinaryImages());
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setImages(await getCloudinaryImages());
+  //   })();
+  // }, []);
 
   console.log("images", images);
 
