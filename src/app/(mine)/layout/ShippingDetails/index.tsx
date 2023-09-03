@@ -18,7 +18,14 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
 
   const [formData, setFormData] = useState(INITIAL_STATE);
 
-  const handleChange = (e: any) => {};
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+
+    setFormData((previousValue) => ({
+      ...previousValue,
+      [name]: value,
+    }));
+  };
   const handleSelect = (e: any) => {};
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -28,9 +35,9 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
     <div>
       ShippingDetail
       <FormWrapper onSubmit={() => {}}>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
+        <input onChange={handleChange} name="address" type="text" />
+        <input onChange={handleChange} name="city" type="text" />
+        <input onChange={handleChange} name="postalCode" type="number" />
         <select
           onSelect={handleSelect}
           className="text-black py-3 outline-none"
