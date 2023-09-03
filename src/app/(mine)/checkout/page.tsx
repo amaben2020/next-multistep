@@ -7,7 +7,7 @@ import ShippingDetail from "../layout/ShippingDetails";
 import UserDetails from "../layout/UserDetails";
 
 const Checkout = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(4);
 
   const handleStep = () => setStep((p) => p + 1);
 
