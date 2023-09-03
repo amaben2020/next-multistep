@@ -10,7 +10,7 @@ export type TFormComponent = {
   onNext: () => void;
   step: number;
 };
-const UserDetails = ({ onNext, step }: FormComponent) => {
+const UserDetails = ({ onNext, step }: TFormComponent) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

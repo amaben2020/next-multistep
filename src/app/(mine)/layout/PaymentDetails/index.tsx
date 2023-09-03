@@ -1,38 +1,33 @@
 import { useState } from "react";
 import { z } from "zod";
-import { shippingDetailsSchema } from "../../../utils/schemas/shipping-details";
+import { paymentInfoSchema } from "../../../utils/schemas/payment-details";
 import Button from "../../components/button";
 import ErrorComponent from "../../components/error";
 import FormWrapper from "../../components/form-wrapper";
 import Input from "../../components/input-group";
 import { TFormComponent } from "../UserDetails";
 
-const ShippingDetail = ({ onNext, step }: TFormComponent) => {
+const PaymentDetail = ({ onNext, step }: TFormComponent) => {
   // here, we upload the image and send to cloudinary
 
   const INITIAL_STATE = {
-    address: "",
-    city: "",
-    postalCode: 11111,
-    shippingMethod: "standard",
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
   };
-
-  const shippingMethods = ["standard", "express"];
 
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [error, setError] = useState<{
     fieldErrors: {
-      postalCode: string;
-      address: string;
-      shippingMethod: string;
-      city: string;
+      cvv: string;
+      cardNumber: string;
+      expirationDate: string;
     };
   }>({
     fieldErrors: {
-      postalCode: "",
-      address: "",
-      shippingMethod: "",
-      city: "",
+      cvv: "",
+      cardNumber: "",
+      expirationDate: "",
     },
   });
 
@@ -42,7 +37,6 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
     setFormData((previousValue) => ({
       ...previousValue,
       [name]: value,
-      postalCode: Number(value),
     }));
   };
 
@@ -50,13 +44,12 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
     e.preventDefault();
 
     try {
-      const SCHEMA = shippingDetailsSchema.safeParse(formData);
-      console.log("SCHEMA", SCHEMA);
+      const SCHEMA = paymentInfoSchema.safeParse(formData);
 
       if (SCHEMA.success) {
         if (typeof window !== undefined) {
           sessionStorage.setItem(
-            "formDataShippingAndBilling",
+            "formDataPayment",
             JSON.stringify(SCHEMA.data),
           );
         }
@@ -64,10 +57,9 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
       } else if (SCHEMA.error) {
         setError({
           fieldErrors: {
-            postalCode: "eRRROR",
-            address: "",
-            shippingMethod: "",
-            city: "",
+            cvv: "eRRROR",
+            cardNumber: "",
+            expirationDate: "",
           },
         });
       }
@@ -81,9 +73,7 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
 
   console.log("error?.fieldErrors", error?.fieldErrors);
 
-  const renderError = (
-    name: "postalCode" | "address" | "city" | "shippingMethod",
-  ) => {
+  const renderError = (name: "cvv" | "cardNumber" | "expirationDate") => {
     const schemaError = Array.isArray(error?.fieldErrors[name])
       ? error?.fieldErrors[name][0]
       : error?.fieldErrors[name];
@@ -93,49 +83,36 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
 
   return (
     <div>
-      ShippingDetail : {step}
+      PaymentDetail : {step}
       <FormWrapper onSubmit={handleSubmit}>
         <Input
           className="text-black py-3 outline-none"
           onChange={handleChange}
-          name="address"
-          label="address"
+          name="cardNumber"
+          label="cardNumber"
           type="text"
-          value={formData.address}
+          value={formData.cardNumber}
         />
-        {renderError("address")}
+        {renderError("cardNumber")}
         <Input
           className="text-black py-3 outline-none"
           onChange={handleChange}
-          name="city"
-          label="city"
+          name="expirationDate"
+          label="Expiration Date"
           type="text"
-          value={formData.city}
+          value={formData.expirationDate}
         />
-        {renderError("city")}
+        {renderError("expirationDate")}
         <Input
           className="text-black py-3 outline-none"
           onChange={handleChange}
-          name="postalCode"
-          value={Number(formData.postalCode)}
-          label="Postal Code"
+          name="cvv"
+          value={formData.cvv}
+          label="CVV"
           type="number"
         />
-        {renderError("postalCode")}
-        <select
-          onChange={handleChange}
-          defaultValue={shippingMethods[0]}
-          className="text-black py-3 outline-none"
-          name="shippingMethod"
-          value={formData.shippingMethod}
-        >
-          {shippingMethods.map((method) => (
-            <option value={method} key={method}>
-              {method}
-            </option>
-          ))}
-        </select>
-        {renderError("shippingMethod")}
+        {renderError("cvv")}
+
         <Button>Next</Button>
       </FormWrapper>
       {/* <UploadForm /> */}
@@ -143,4 +120,4 @@ const ShippingDetail = ({ onNext, step }: TFormComponent) => {
   );
 };
 
-export default ShippingDetail;
+export default PaymentDetail;
