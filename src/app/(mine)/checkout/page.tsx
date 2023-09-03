@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ShippingDetail from "../layout/ShippingDetails";
 import UserDetails from "../layout/UserDetails";
 
 const Checkout = () => {
@@ -18,7 +19,7 @@ const Checkout = () => {
         );
 
       case 2:
-        return <>2</>;
+        return <ShippingDetail onNext={handleStep} step={step} />;
 
       case 3:
         return <>3</>;

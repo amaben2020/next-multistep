@@ -6,13 +6,11 @@ import ErrorComponent from "../../components/error";
 import FormWrapper from "../../components/form-wrapper";
 import Input from "../../components/input-group";
 
-const UserDetails = ({
-  onNext,
-  step,
-}: {
+export type TFormComponent = {
   onNext: () => void;
   step: number;
-}) => {
+};
+const UserDetails = ({ onNext, step }: FormComponent) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
